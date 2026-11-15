@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exame Faixa Azul — Leandro Schmitz BJJ</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-alt: #263349;
+      --border: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent: #38bdf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 4rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      border-bottom: 2px solid var(--primary);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 120px;
+      background: var(--surface);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Cards & Grid */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem;
+    }
+
+    .stat-box .label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .stat-box .value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+
+    /* Progress Bar */
+    .progress-wrap {
+      background: #0f172a;
+      border-radius: 999px;
+      height: 12px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Forms */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.6rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: var(--primary-hover); }
+    .btn-success { background: #16a34a; }
+    .btn-success:hover { background: #15803d; }
+    .btn-danger { background: var(--danger); padding: 0.35rem 0.65rem; font-size: 0.8rem; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { background: var(--surface-alt); }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 0.5rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.65rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th { color: var(--text-muted); font-weight: 600; }
+
+    /* Checklist */
+    .tech-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-group h3 {
+      font-size: 1rem;
+      color: #e2e8f0;
+      background: var(--surface-alt);
+      padding: 0.5rem 0.75rem;
+      border-left: 4px solid var(--primary);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.5rem 0.4rem;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .tech-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      accent-color: var(--success);
+      cursor: pointer;
+    }
+
+    .tech-item.done span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+    }
+
+    .alert-box {
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 4px solid var(--warning);
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: #fde68a;
+      margin-bottom: 1rem;
+    }
+
+    .flex-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🥋 Preparação Exame Faixa Azul</h1>
+  <p>Escola de Jiu-Jitsu Leandro Schmitz • Meta Física &amp; Edital Técnico</p>
+</header>
+
+<div class="container">
+  <!-- Resumo Geral -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="label">Recorde Flexões Seguidas</div>
+      <div class="value" id="stat-max-pushup">0 / 30</div>
+      <div class="progress-wrap"><div class="progress-fill" id="bar-max-pushup"></div></div>
+    </div>
+    <div class="stat-box">
+      <div class="label">Maior Volume Sessão</div>
+      <div class="value" id="stat-vol-pushup">0 / 100</div>
+      <div class="progress-wrap"><div class="progress-fill" id="bar-vol-pushup"></div></div>
+    </div>
+    <div class="stat-box">
+      <div class="label">Domínio Técnico Edital</div>
+      <div class="value" id="stat-tech">0%</div>
+      <div class="progress-wrap"><div class="progress-fill" id="bar-tech"></div></div>
+    </div>
+    <div class="stat-box">
+      <div class="label">Treinos Físicos Feitos</div>
+      <div class="value" id="stat-workouts">0</div>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab('fisico', this)">💪 Preparo Físico</button>
+    <button class="tab-btn" onclick="openTab('edital', this)">📋 Edital Técnico</button>
+    <button class="tab-btn" onclick="openTab('plano', this)">📅 Cronograma &amp; Regras</button>
+    <button class="tab-btn" onclick="openTab('backup', this)">💾 Backup Dados</button>
+  </div>
+
+  <!-- ABA 1: PREPARO FÍSICO -->
+  <div id="fisico" class="tab-content active">
+    <div class="card">
+      <h2>Registrar Treino Físico em Casa</h2>
+      <div class="alert-box">
+        <strong>Meta da Prova:</strong> 2 blocos de 30 flexões seguidas (60 total) + 50 abdominais + prancha.<br>
+        <strong>Margem de Segurança de Treino:</strong> Acumular 80 a 100 flexões por sessão (retas + joelho) sem forçar epicondilite.
+      </div>
+      <form id="workout-form">
+        <div class="form-grid">
+          <div>
+            <label for="w-date">Data</label>
+            <input type="date" id="w-date" required />
+          </div>
+          <div>
+            <label for="w-max-straight">Máx. Flexões Seguidas (Retas)</label>
+            <input type="number" id="w-max-straight" min="0" placeholder="Ex: 10" required />
+          </div>
+          <div>
+            <label for="w-total-straight">Total Retas na Sessão</label>
+            <input type="number" id="w-total-straight" min="0" placeholder="Ex: 35" required />
+          </div>
+          <div>
+            <label for="w-total-knee">Total com Joelho no Chão</label>
+            <input type="number" id="w-total-knee" min="0" placeholder="Ex: 45" required />
+          </div>
+          <div>
+            <label for="w-abs">Abdominais (Meta: 50+)</label>
+            <input type="number" id="w-abs" min="0" placeholder="Ex: 50" required />
+          </div>
+          <div>
+            <label for="w-plank">Prancha (segundos)</label>
+            <input type="number" id="w-plank" min="0" placeholder="Ex: 60" required />
+          </div>
+        </div>
+        <div style="margin-top: 0.75rem;">
+          <label for="w-notes">Observações (Cotovelo, ombro, pausas, disposição)</label>
+          <input type="text" id="w-notes" placeholder="Ex: Blocos de 6 retas + 15s pausa, cotovelo sem dor" />
+        </div>
+        <div style="margin-top: 1rem;">
+          <button type="submit" class="btn btn-success">+ Salvar Treino</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Histórico de Treinos</h2>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Seguidas</th>
+              <th>Volume Flexões</th>
+              <th>Abs</th>
+              <th>Prancha</th>
+              <th>Obs</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="workout-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA 2: EDITAL TÉCNICO -->
+  <div id="edital" class="tab-content">
+    <div class="card">
+      <h2>
+        <span>Checklist Oficial — Escola Leandro Schmitz</span>
+        <span class="badge" id="tech-counter">0 / 0</span>
+      </h2>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Critério de aprovação: Prova Teórica + Defesa Pessoal + Quedas + Sorteio de 15 posições de solo. Máximo 3 erros acumulados (Parcial: -0,5 | Total: -1,0).
+      </p>
+      <div id="checklist-container"></div>
+    </div>
+
+    <div class="card">
+      <h2>Anotações Técnicas / Posições para Pedir Ajuda no Tatame</h2>
+      <textarea id="tech-notes" rows="4" placeholder="Anote aqui detalhes de pegadas, posições que precisa treinar mais com o professor ou dúvidas da prova teórica..."></textarea>
+      <div style="margin-top: 0.6rem;">
+        <button class="btn" onclick="saveNotes()">Salvar Anotações</button>
+        <span id="notes-msg" style="font-size: 0.85rem; color: var(--success); margin-left: 0.5rem;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA 3: CRONOGRAMA & REGRAS -->
+  <div id="plano" class="tab-content">
+    <div class="card">
+      <h2>Plano Físico (12 a 20 Semanas — 3x/Semana)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Foco</th>
+            <th>Meta Flexões</th>
+            <th>Abs &amp; Prancha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Fase 1</strong><br>(Sem. 1–3)</td>
+            <td>Base e adaptação tendões (cotovelo/ombro)</td>
+            <td><strong>50–60 totais:</strong> blocos de 5–8 retas (pausa 20s) + completar com joelho</td>
+            <td>2x25 abs + 2x30s prancha</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 2</strong><br>(Sem. 4–7)</td>
+            <td>Aumentar bloco contínuo sem joelho</td>
+            <td><strong>70–80 totais:</strong> blocos de 10–15 retas (pausa 25s)</td>
+            <td>2x30 abs + 2x45s prancha</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 3</strong><br>(Sem. 8–12)</td>
+            <td>Margem de sobra e 30 seguidas</td>
+            <td><strong>80–100 totais:</strong> 1º bloco de 20–25 seguidas + blocos de 12–15</td>
+            <td>50 abs seguidos + 1x60s prancha</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 4</strong><br>(Sem. 13+)</td>
+            <td>Simulado real do dia do exame</td>
+            <td><strong>30 seguidas</strong> + pausa 1–2 min + <strong>30 seguidas</strong> + 20–30 extras</td>
+            <td>60 abs + 1x1m15s prancha</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Cola Rápida — Prova Teórica CBJJ / IBJJF</h2>
+      <ul style="padding-left: 1.2rem; font-size: 0.92rem; color: #e2e8f0; display: grid; gap: 0.5rem;">
+        <li><strong>2 Pontos:</strong> Queda, Raspagem, Joelho na barriga (estabilizar por 3 segundos).</li>
+        <li><strong>3 Pontos:</strong> Passagem de guarda (estabilizar por 3 segundos).</li>
+        <li><strong>4 Pontos:</strong> Montada, Montada pelas costas, Pegada de costas com os 2 ganchos (3 segundos).</li>
+        <li><strong>Tempo de Luta (Adulto):</strong> Branca (5 min) | Azul (6 min) | Roxa (7 min) | Marrom (8 min) | Preta (10 min).</li>
+        <li><strong>Tempo de Luta (Master 1+):</strong> Branca, Azul, Roxa, Marrom e Preta (5 min).</li>
+        <li><strong>Ordem das Faixas (Adulto):</strong> Branca → Azul → Roxa → Marrom → Preta → Coral (Vermelha e Preta / Vermelha e Branca) → Vermelha.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ABA 4: BACKUP -->
+  <div id="backup" class="tab-content">
+    <div class="card">
+      <h2>Sincronizar / Salvar Backup</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Como o GitHub Pages é um site estático, seus dados ficam salvos automaticamente neste navegador. Use os botões abaixo para transferir seus dados entre celular e PC ou guardar uma cópia de segurança.
+      </p>
+      <div class="flex-row" style="margin-bottom: 1rem;">
+        <button class="btn" onclick="exportData()">⬇️ Baixar Backup (.json)</button>
+        <label class="btn btn-outline" style="margin: 0; cursor: pointer;">
+          ⬆️ Restaurar Backup (.json)
+          <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importData(event)" />
+        </label>
+      </div>
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 1rem 0;" />
+      <button class="btn btn-danger" onclick="resetAll()">🗑️ Apagar Todos os Dados</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const EDITAL_DATA = [
+    {
+      category: "1. Defesa Pessoal — Agressão Frontal",
+      items: [
+        "1. Defesa de mão invertida",
+        "2. Defesa de duas mãos estendidas",
+        "3. Defesa de gola torcida",
+        "4. Defesa de cinturada frontal",
+        "5. Contra-ataque de single/double leg com guilhotina / joelhada",
+        "6. Defesa de pegada no gogó",
+        "7. Defesa de Double Leg",
+        "8. Defesa de abraço de urso pela frente",
+        "9. Defesa de pisão"
+      ]
+    },
+    {
+      category: "1. Defesa Pessoal — Lateral, Costas, Solo e Outras",
+      items: [
+        "Lateral 1: Gravata lateral (estendido / flexionado)",
+        "Lateral 2: Defesa contra a parede",
+        "Lateral 3: Defesa de chute lateral",
+        "Lateral 4: Defesa de empurrão no ombro",
+        "Lateral 5: Defesa de puxão de cabelo",
+        "Costas 1: Defesa de Double Nelson",
+        "Costas 2: Defesa de cinturada pelas costas (axilas / quadril)",
+        "Costas 3: Defesa de abraço de urso pelas costas",
+        "Costas 4: Defesa da pegada no pescoço pelas costas",
+        "Costas 5: Defesa da gravata pelas costas",
+        "Solo 1: Levanta técnica com pisão, defesa de tapa e cinturada",
+        "Solo 2: Defesas de gravata deitada (3 variações de apoio/mão)",
+        "Solo 3: Guarda de defesa pessoal (curta / média distância)",
+        "Solo 4: Defesa de segurada nos calcanhares",
+        "Outras 1: Segurada no pulso (paralela / cruzada / duas mãos)",
+        "Outras 2: Defesa de abraço em 4 apoios"
+      ]
+    },
+    {
+      category: "2. Fundamentos e Quedas",
+      items: [
+        "Fundamentos: 1. Chamar guarda aberta / 2. Chamar meia-guarda / 3. Saltar guarda fechada",
+        "Quedas: 1. Double Leg / 2. Single Leg / 3. Ciranda"
+      ]
+    },
+    {
+      category: "3. Solo — Ataques da Guarda e Passagens",
+      items: [
+        "Ataques da Guarda: Estrangulamento g. fechada, Arm-lock, Kimura",
+        "Ataques da Guarda: Triângulo g. aranha, Omoplata, Ir para as costas, Guilhotina",
+        "Passagem de Guarda: Fechando o cadeado",
+        "Passagem de Guarda: Toureando",
+        "Passagem de Guarda: Leg Drag partindo da De La Riva (DLR)",
+        "Passagem de Guarda: Passagem de 1/2 guarda cruzando joelho com testa no chão e montando"
+      ]
+    },
+    {
+      category: "3. Solo — Raspagens",
+      items: [
+        "Raspagem de Guarda Laço",
+        "Raspagem Abre/fecha nos joelhos",
+        "Raspagem Segurando calcanhar",
+        "Raspagem de Gancho",
+        "Raspagem Pé no bíceps",
+        "Raspagem Tesoura",
+        "Raspagem Tripé (DLR)",
+        "Raspagem Rebolada no joelho",
+        "Raspagem de Omoplata",
+        "Raspagem de Deep Half (1 à escolha)"
+      ]
+    },
+    {
+      category: "3. Solo — Saídas, Escapadas e Defesas",
+      items: [
+        "Saída do triângulo e Saída do arm-lock",
+        "Saída dos 100kg (virando 4 apoios / variação 2)",
+        "Saída das costas e Saída do arm-lock da montada",
+        "Defesa de esgrima na meia-guarda e laço",
+        "Defesas: Chave de pé quando cruza nas costas e Reposição de 4 apoios",
+        "Defesas: Chave de pé reta e Defesa da guilhotina do Double Leg"
+      ]
+    },
+    {
+      category: "3. Solo — Ataques de Montada, Laterais, 4 Apoios e Outras",
+      items: [
+        "Montada: Arm-lock, Estrangulamento, Americana, Ezequiel",
+        "Laterais (100kg): Os quatro 100kg e Estrangulamento dos 100kg (var. 4 por baixo do braço)",
+        "Laterais: Joelho na barriga, Arm-lock invertido/rodado, Kimura dos 100kg",
+        "4 Apoios: Pegada de costas, Arco e flecha, Relógio (específico)",
+        "Outras: Mão de vaca (guarda/em pé) e Chave de pé sentado (gancho por dentro)",
+        "Outras: Estrangulamentos de costas (1, 2 e 3) e Colocar na DLR com dupla pegada"
+      ]
+    },
+    {
+      category: "4. Prova Teórica — Conhecimentos Gerais e CBJJ",
+      items: [
+        "Histórico do Jiu-Jitsu no mundo e no Brasil",
+        "Tempos de luta por faixa e Sistema de graduação",
+        "Nomenclatura das categorias de peso e idade",
+        "Pontuações e punições oficiais IBJJF / CBJJ"
+      ]
+    }
+  ];
+
+  const STORAGE_KEY = "bjj_azul_leandro_schmitz_v1";
+
+  let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+    workouts: [],
+    checkedTech: {},
+    notes: ""
+  };
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateDashboard();
+  }
+
+  function openTab(tabId, btn) {
+    document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+    document.getElementById(tabId).classList.add("active");
+    btn.classList.add("active");
+  }
+
+  // Inicializar data de hoje no formulário
+  document.getElementById("w-date").valueAsDate = new Date();
+
+  // Salvar treino físico
+  document.getElementById("workout-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const entry = {
+      id: Date.now(),
+      date: document.getElementById("w-date").value,
+      maxStraight: Number(document.getElementById("w-max-straight").value),
+      totalStraight: Number(document.getElementById("w-total-straight").value),
+      totalKnee: Number(document.getElementById("w-total-knee").value),
+      abs: Number(document.getElementById("w-abs").value),
+      plank: Number(document.getElementById("w-plank").value),
+      notes: document.getElementById("w-notes").value.trim()
+    };
+    state.workouts.unshift(entry);
+    saveState();
+    renderWorkouts();
+    this.reset();
+    document.getElementById("w-date").valueAsDate = new Date();
+  });
+
+  function deleteWorkout(id) {
+    if (!confirm("Remover este registro de treino?")) return;
+    state.workouts = state.workouts.filter(w => w.id !== id);
+    saveState();
+    renderWorkouts();
+  }
+
+  function renderWorkouts() {
+    const tbody = document.getElementById("workout-tbody");
+    tbody.innerHTML = "";
+    if (state.workouts.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" style="color: var(--text-muted); text-align:center;">Nenhum treino registrado ainda.</td></tr>`;
+      return;
+    }
+    state.workouts.forEach(w => {
+      const totalPushups = w.totalStraight + w.totalKnee;
+      const dateFmt = w.date.split("-").reverse().join("/");
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${dateFmt}</td>
+        <td><strong>${w.maxStraight}</strong> retas</td>
+        <td><strong>${totalPushups}</strong> (${w.totalStraight}R + ${w.totalKnee}J)</td>
+        <td>${w.abs}</td>
+        <td>${w.plank}s</td>
+        <td style="color: var(--text-muted); max-width: 200px;">${w.notes || "-"}</td>
+        <td><button class="btn btn-danger" onclick="deleteWorkout(${w.id})">X</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderChecklist() {
+    const container = document.getElementById("checklist-container");
+    container.innerHTML = "";
+    EDITAL_DATA.forEach((group, gIdx) => {
+      const div = document.createElement("div");
+      div.className = "tech-group";
+      div.innerHTML = `<h3>${group.category}</h3>`;
+      group.items.forEach((item, iIdx) => {
+        const key = `${gIdx}-${iIdx}`;
+        const checked = !!state.checkedTech[key];
+        const row = document.createElement("label");
+        row.className = `tech-item ${checked ? "done" : ""}`;
+        row.innerHTML = `
+          <input type="checkbox" ${checked ? "checked" : ""} onchange="toggleTech('${key}', this)" />
+          <span>${item}</span>
+        `;
+        div.appendChild(row);
+      });
+      container.appendChild(div);
+    });
+  }
+
+  function toggleTech(key, checkbox) {
+    state.checkedTech[key] = checkbox.checked;
+    checkbox.parentElement.classList.toggle("done", checkbox.checked);
+    saveState();
+  }
+
+  function saveNotes() {
+    state.notes = document.getElementById("tech-notes").value;
+    saveState();
+    const msg = document.getElementById("notes-msg");
+    msg.textContent = "Anotações salvas!";
+    setTimeout(() => msg.textContent = "", 2500);
+  }
+
+  function updateDashboard() {
+    // Físico
+    let maxStraight = 0;
+    let maxVol = 0;
+    state.workouts.forEach(w => {
+      if (w.maxStraight > maxStraight) maxStraight = w.maxStraight;
+      const vol = w.totalStraight + w.totalKnee;
+      if (vol > maxVol) maxVol = vol;
+    });
+
+    document.getElementById("stat-max-pushup").textContent = `${maxStraight} / 30`;
+    document.getElementById("bar-max-pushup").style.width = `${Math.min(100, (maxStraight / 30) * 100)}%`;
+
+    document.getElementById("stat-vol-pushup").textContent = `${maxVol} / 100`;
+    document.getElementById("bar-vol-pushup").style.width = `${Math.min(100, (maxVol / 100) * 100)}%`;
+
+    document.getElementById("stat-workouts").textContent = state.workouts.length;
+
+    // Técnico
+    let totalItems = 0;
+    let doneItems = 0;
+    EDITAL_DATA.forEach((g, gIdx) => {
+      g.items.forEach((_, iIdx) => {
+        totalItems++;
+        if (state.checkedTech[`${gIdx}-${iIdx}`]) doneItems++;
+      });
+    });
+
+    const pct = totalItems ? Math.round((doneItems / totalItems) * 100) : 0;
+    document.getElementById("stat-tech").textContent = `${pct}%`;
+    document.getElementById("bar-tech").style.width = `${pct}%`;
+    document.getElementById("tech-counter").textContent = `${doneItems} / ${totalItems}`;
+  }
+
+  function exportData() {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `backup-faixa-azul-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        if (parsed && Array.isArray(parsed.workouts)) {
+          state = parsed;
+          saveState();
+          renderWorkouts();
+          renderChecklist();
+          document.getElementById("tech-notes").value = state.notes || "";
+          alert("Backup restaurado com sucesso!");
+        } else {
+          alert("Arquivo de backup inválido.");
+        }
+      } catch {
+        alert("Erro ao ler o arquivo JSON.");
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function resetAll() {
+    if (!confirm("Tem certeza que deseja apagar todos os treinos e marcações?")) return;
+    state = { workouts: [], checkedTech: {}, notes: "" };
+    saveState();
+    renderWorkouts();
+    renderChecklist();
+    document.getElementById("tech-notes").value = "";
+  }
+
+  // Inicialização
+  document.getElementById("tech-notes").value = state.notes || "";
+  renderWorkouts();
+  renderChecklist();
+  updateDashboard();
+</script>
+
+</body>
+</html>
