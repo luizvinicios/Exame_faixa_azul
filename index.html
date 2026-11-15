@@ -3,246 +3,538 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exame Faixa Azul — Leandro Schmitz BJJ</title>
+  <meta name="theme-color" content="#090d16" />
+  <title>Exame Faixa Azul • Leandro Schmitz BJJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --surface-alt: #263349;
-      --border: #334155;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --accent: #38bdf8;
-      --success: #22c55e;
-      --warning: #f59e0b;
-      --danger: #ef4444;
+      --bg-base: #070b14;
+      --bg-gradient: radial-gradient(circle at 15% 0%, rgba(37, 99, 235, 0.18) 0%, transparent 45%),
+                     radial-gradient(circle at 85% 10%, rgba(14, 165, 233, 0.12) 0%, transparent 40%);
+      --surface: rgba(17, 25, 40, 0.78);
+      --surface-solid: #111928;
+      --surface-hover: rgba(30, 41, 59, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(56, 189, 248, 0.35);
+      --text: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --blue-belt: #2563eb;
+      --blue-glow: rgba(37, 99, 235, 0.45);
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.3);
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-base);
+      background-image: var(--bg-gradient);
+      background-attachment: fixed;
       color: var(--text);
-      line-height: 1.5;
-      padding-bottom: 4rem;
+      line-height: 1.55;
+      padding-bottom: 5rem;
+      -webkit-font-smoothing: antialiased;
     }
 
-    header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      border-bottom: 2px solid var(--primary);
-      padding: 1.5rem 1rem;
-      text-align: center;
+    /* Hero Banner */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(23, 37, 84, 0.9) 55%, rgba(12, 74, 110, 0.85) 100%);
+      border-bottom: 1px solid var(--border-accent);
+      padding: 2.25rem 1.25rem 2rem;
+      overflow: hidden;
     }
 
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
     }
 
-    header p {
-      color: #cbd5e1;
-      font-size: 0.9rem;
-      margin-top: 0.25rem;
-    }
-
-    .container {
-      max-width: 960px;
+    .hero-inner {
+      max-width: 1020px;
       margin: 0 auto;
-      padding: 1rem;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
-    /* Tabs */
-    .tabs {
-      display: flex;
+    .belt-pill {
+      display: inline-flex;
+      align-items: center;
       gap: 0.5rem;
-      margin-bottom: 1.25rem;
-      flex-wrap: wrap;
+      width: fit-content;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .belt-strip {
+      display: inline-flex;
+      width: 28px;
+      height: 10px;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .belt-strip span:first-child { flex: 1; background: #2563eb; }
+    .belt-strip span:last-child { width: 8px; background: #090d16; }
+
+    .hero h1 {
+      font-size: clamp(1.55rem, 3.5vw, 2.15rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #ffffff, #bae6fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      max-width: 620px;
+    }
+
+    /* Layout Container */
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 0;
+    }
+
+    /* KPI Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem 1.25rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-accent);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.45rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stat-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: rgba(37, 99, 235, 0.15);
+      color: var(--cyan);
+      font-size: 1rem;
+    }
+
+    .stat-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .progress-track {
+      background: rgba(9, 13, 22, 0.9);
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue-belt), var(--cyan));
+      box-shadow: 0 0 12px var(--blue-glow);
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-fill.green {
+      background: linear-gradient(90deg, #059669, var(--emerald));
+      box-shadow: 0 0 12px var(--emerald-glow);
+    }
+
+    /* Navigation Tabs */
+    .nav-bar {
+      display: flex;
+      gap: 0.4rem;
+      background: var(--surface-solid);
+      padding: 0.4rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
     }
 
     .tab-btn {
       flex: 1;
-      min-width: 120px;
-      background: var(--surface);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
+      min-width: 135px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .tab-btn.active {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--blue-belt), #1d4ed8);
       color: #fff;
-      border-color: var(--accent);
+      box-shadow: 0 4px 14px var(--blue-glow);
     }
 
-    .tab-content { display: none; }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
     .tab-content.active { display: block; }
 
-    /* Cards & Grid */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .card h2 {
-      font-size: 1.15rem;
-      margin-bottom: 0.75rem;
-      color: var(--accent);
+    /* Glass Panels */
+    .panel {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      flex-wrap: wrap;
       gap: 0.75rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .stat-box {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.9rem;
-    }
-
-    .stat-box .label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .stat-box .value {
-      font-size: 1.4rem;
+    .panel-title {
+      font-size: 1.1rem;
       font-weight: 700;
-      margin-top: 0.2rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    /* Progress Bar */
-    .progress-wrap {
-      background: #0f172a;
-      border-radius: 999px;
-      height: 12px;
-      overflow: hidden;
-      margin-top: 0.5rem;
-      border: 1px solid var(--border);
+    /* Callout Banner */
+    .callout {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-left: 4px solid var(--cyan);
+      padding: 0.95rem 1.1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: #e0f2fe;
+      margin-bottom: 1.25rem;
     }
 
-    .progress-fill {
-      background: linear-gradient(90deg, var(--primary), var(--success));
-      height: 100%;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    /* Forms */
+    /* Form Controls */
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 0.9rem;
     }
 
-    label {
+    .field label {
       display: block;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.35rem;
     }
 
-    input, select, textarea {
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
       width: 100%;
-      background: #0f172a;
+      background: rgba(9, 13, 22, 0.85);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 0.6rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.95rem;
+      padding: 0.68rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.92rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--accent);
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
     }
 
+    /* Buttons */
     .btn {
-      background: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background: var(--blue-belt);
       color: #fff;
       border: none;
-      padding: 0.65rem 1.2rem;
-      border-radius: 6px;
+      padding: 0.72rem 1.3rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.2s;
+      transition: all 0.2s ease;
     }
 
-    .btn:hover { background: var(--primary-hover); }
-    .btn-success { background: #16a34a; }
-    .btn-success:hover { background: #15803d; }
-    .btn-danger { background: var(--danger); padding: 0.35rem 0.65rem; font-size: 0.8rem; }
-    .btn-outline {
-      background: transparent;
+    .btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, #059669, #10b981);
+      box-shadow: 0 4px 14px var(--emerald-glow);
+    }
+    .btn-emerald:hover { background: #047857; }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
       color: var(--text);
     }
-    .btn-outline:hover { background: var(--surface-alt); }
+    .btn-ghost:hover { background: rgba(255, 255, 255, 0.1); }
 
-    /* Table */
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fda4af;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.78rem;
+    }
+    .btn-danger:hover {
+      background: var(--rose);
+      color: #fff;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.88rem;
-      margin-top: 0.5rem;
     }
 
-    th, td {
+    thead {
+      background: rgba(9, 13, 22, 0.7);
+    }
+
+    th {
       text-align: left;
-      padding: 0.65rem 0.5rem;
+      padding: 0.8rem 0.9rem;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
       border-bottom: 1px solid var(--border);
     }
 
-    th { color: var(--text-muted); font-weight: 600; }
+    td {
+      padding: 0.8rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
 
-    /* Checklist */
-    .tech-group {
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--cyan);
+    }
+
+    .tag.green {
+      background: rgba(16, 185, 129, 0.14);
+      color: #6ee7b7;
+    }
+
+    /* Edital Search & Filter */
+    .filter-bar {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
       margin-bottom: 1.25rem;
     }
 
-    .tech-group h3 {
-      font-size: 1rem;
+    .filter-bar input { flex: 1; min-width: 200px; }
+
+    .filter-pills {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .pill-btn {
+      background: rgba(9, 13, 22, 0.7);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .pill-btn.active {
+      background: var(--blue-belt);
+      color: #fff;
+      border-color: var(--cyan);
+    }
+
+    /* Checklist Groups */
+    .tech-group {
+      background: rgba(9, 13, 22, 0.45);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .tech-group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      background: rgba(30, 41, 59, 0.55);
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+      font-size: 0.94rem;
       color: #e2e8f0;
-      background: var(--surface-alt);
-      padding: 0.5rem 0.75rem;
-      border-left: 4px solid var(--primary);
-      border-radius: 4px;
-      margin-bottom: 0.5rem;
     }
 
     .tech-item {
       display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.5rem 0.4rem;
-      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      transition: background 0.15s;
     }
 
+    .tech-item:last-child { border-bottom: none; }
+    .tech-item:hover { background: rgba(255, 255, 255, 0.03); }
+
     .tech-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-top: 3px;
-      accent-color: var(--success);
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 6px;
+      border: 2px solid #475569;
+      background: rgba(9, 13, 22, 0.9);
+      display: grid;
+      place-items: center;
       cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tech-item input[type="checkbox"]:checked {
+      background: var(--emerald);
+      border-color: var(--emerald);
+    }
+
+    .tech-item input[type="checkbox"]:checked::after {
+      content: "✓";
+      color: #042f2e;
+      font-weight: 900;
+      font-size: 0.85rem;
     }
 
     .tech-item.done span {
@@ -250,130 +542,195 @@
       color: var(--text-muted);
     }
 
-    .badge {
-      display: inline-block;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent);
+    /* Theory Cards */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.85rem;
     }
 
-    .alert-box {
-      background: rgba(245, 158, 11, 0.12);
-      border-left: 4px solid var(--warning);
-      padding: 0.75rem;
-      border-radius: 4px;
+    .theory-card {
+      background: rgba(9, 13, 22, 0.55);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .theory-card h4 {
+      color: var(--cyan);
       font-size: 0.88rem;
-      color: #fde68a;
-      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
     }
 
-    .flex-row {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      align-items: center;
+    .theory-card p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #0f172a;
+      border: 1px solid var(--emerald);
+      color: #ecfdf5;
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 999;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .panel { padding: 1.1rem; }
+      .stat-value { font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>🥋 Preparação Exame Faixa Azul</h1>
-  <p>Escola de Jiu-Jitsu Leandro Schmitz • Meta Física &amp; Edital Técnico</p>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="belt-pill">
+      <span class="belt-strip"><span></span><span></span></span>
+      Rumo à Faixa Azul • Leandro Schmitz BJJ
+    </div>
+    <h1>Painel de Preparação Física &amp; Técnica</h1>
+    <p>Controle de resistência (meta 30 seguidas / 100 acumuladas) e checklist completo do edital oficial de graduação.</p>
+  </div>
 </header>
 
 <div class="container">
-  <!-- Resumo Geral -->
+  <!-- KPIs Principais -->
   <div class="stats-grid">
-    <div class="stat-box">
-      <div class="label">Recorde Flexões Seguidas</div>
-      <div class="value" id="stat-max-pushup">0 / 30</div>
-      <div class="progress-wrap"><div class="progress-fill" id="bar-max-pushup"></div></div>
+    <div class="stat-card">
+      <div class="stat-header">
+        <span class="stat-label">Recorde Seguidas</span>
+        <div class="stat-icon">🔥</div>
+      </div>
+      <div class="stat-value" id="stat-max-pushup">0 / 30</div>
+      <div class="stat-sub">Meta da prova: 2 blocos de 30</div>
+      <div class="progress-track"><div class="progress-fill" id="bar-max-pushup"></div></div>
     </div>
-    <div class="stat-box">
-      <div class="label">Maior Volume Sessão</div>
-      <div class="value" id="stat-vol-pushup">0 / 100</div>
-      <div class="progress-wrap"><div class="progress-fill" id="bar-vol-pushup"></div></div>
+
+    <div class="stat-card">
+      <div class="stat-header">
+        <span class="stat-label">Maior Volume Sessão</span>
+        <div class="stat-icon">💪</div>
+      </div>
+      <div class="stat-value" id="stat-vol-pushup">0 / 100</div>
+      <div class="stat-sub">Margem de sobra (retas + joelho)</div>
+      <div class="progress-track"><div class="progress-fill" id="bar-vol-pushup"></div></div>
     </div>
-    <div class="stat-box">
-      <div class="label">Domínio Técnico Edital</div>
-      <div class="value" id="stat-tech">0%</div>
-      <div class="progress-wrap"><div class="progress-fill" id="bar-tech"></div></div>
+
+    <div class="stat-card">
+      <div class="stat-header">
+        <span class="stat-label">Edital Dominado</span>
+        <div class="stat-icon">🥋</div>
+      </div>
+      <div class="stat-value" id="stat-tech">0%</div>
+      <div class="stat-sub" id="stat-tech-sub">0 de 0 posições marcadas</div>
+      <div class="progress-track"><div class="progress-fill green" id="bar-tech"></div></div>
     </div>
-    <div class="stat-box">
-      <div class="label">Treinos Físicos Feitos</div>
-      <div class="value" id="stat-workouts">0</div>
+
+    <div class="stat-card">
+      <div class="stat-header">
+        <span class="stat-label">Sessões Registradas</span>
+        <div class="stat-icon">📈</div>
+      </div>
+      <div class="stat-value" id="stat-workouts">0</div>
+      <div class="stat-sub">Consistência é o segredo</div>
     </div>
   </div>
 
   <!-- Navegação -->
-  <div class="tabs">
+  <nav class="nav-bar">
     <button class="tab-btn active" onclick="openTab('fisico', this)">💪 Preparo Físico</button>
     <button class="tab-btn" onclick="openTab('edital', this)">📋 Edital Técnico</button>
     <button class="tab-btn" onclick="openTab('plano', this)">📅 Cronograma &amp; Regras</button>
-    <button class="tab-btn" onclick="openTab('backup', this)">💾 Backup Dados</button>
-  </div>
+    <button class="tab-btn" onclick="openTab('backup', this)">💾 Backup</button>
+  </nav>
 
   <!-- ABA 1: PREPARO FÍSICO -->
-  <div id="fisico" class="tab-content active">
-    <div class="card">
-      <h2>Registrar Treino Físico em Casa</h2>
-      <div class="alert-box">
-        <strong>Meta da Prova:</strong> 2 blocos de 30 flexões seguidas (60 total) + 50 abdominais + prancha.<br>
-        <strong>Margem de Segurança de Treino:</strong> Acumular 80 a 100 flexões por sessão (retas + joelho) sem forçar epicondilite.
+  <section id="fisico" class="tab-content active">
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Registrar Treino em Casa</h2>
+        <span class="tag">3x na semana</span>
       </div>
+
+      <div class="callout">
+        <span style="font-size: 1.2rem;">⚡</span>
+        <div>
+          <strong>Estratégia de Execução:</strong> Desça controlado (1,5s) para poupar ombro e cotovelo. Se queimar no meio do bloco, faça a <strong>pausa alta em V invertido</strong> por 3 segundos sem encostar o joelho no chão.
+        </div>
+      </div>
+
       <form id="workout-form">
         <div class="form-grid">
-          <div>
-            <label for="w-date">Data</label>
+          <div class="field">
+            <label for="w-date">Data do Treino</label>
             <input type="date" id="w-date" required />
           </div>
-          <div>
-            <label for="w-max-straight">Máx. Flexões Seguidas (Retas)</label>
-            <input type="number" id="w-max-straight" min="0" placeholder="Ex: 10" required />
+          <div class="field">
+            <label for="w-max-straight">Máx. Seguidas (Retas)</label>
+            <input type="number" id="w-max-straight" min="0" placeholder="Ex: 12" required />
           </div>
-          <div>
+          <div class="field">
             <label for="w-total-straight">Total Retas na Sessão</label>
-            <input type="number" id="w-total-straight" min="0" placeholder="Ex: 35" required />
+            <input type="number" id="w-total-straight" min="0" placeholder="Ex: 40" required />
           </div>
-          <div>
-            <label for="w-total-knee">Total com Joelho no Chão</label>
+          <div class="field">
+            <label for="w-total-knee">Total com Joelho</label>
             <input type="number" id="w-total-knee" min="0" placeholder="Ex: 45" required />
           </div>
-          <div>
+          <div class="field">
             <label for="w-abs">Abdominais (Meta: 50+)</label>
             <input type="number" id="w-abs" min="0" placeholder="Ex: 50" required />
           </div>
-          <div>
+          <div class="field">
             <label for="w-plank">Prancha (segundos)</label>
             <input type="number" id="w-plank" min="0" placeholder="Ex: 60" required />
           </div>
         </div>
-        <div style="margin-top: 0.75rem;">
-          <label for="w-notes">Observações (Cotovelo, ombro, pausas, disposição)</label>
-          <input type="text" id="w-notes" placeholder="Ex: Blocos de 6 retas + 15s pausa, cotovelo sem dor" />
+
+        <div class="field" style="margin-top: 0.9rem;">
+          <label for="w-notes">Observações (Cotovelo, ombro, divisão dos blocos)</label>
+          <input type="text" id="w-notes" placeholder="Ex: Blocos de 8 retas + 15s descanso, sem dor no cotovelo" />
         </div>
-        <div style="margin-top: 1rem;">
-          <button type="submit" class="btn btn-success">+ Salvar Treino</button>
+
+        <div style="margin-top: 1.1rem;">
+          <button type="submit" class="btn btn-emerald">✓ Salvar Treino</button>
         </div>
       </form>
     </div>
 
-    <div class="card">
-      <h2>Histórico de Treinos</h2>
-      <div style="overflow-x: auto;">
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Histórico de Evolução</h2>
+      </div>
+      <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>Data</th>
               <th>Seguidas</th>
-              <th>Volume Flexões</th>
-              <th>Abs</th>
+              <th>Volume Total</th>
+              <th>Abdominais</th>
               <th>Prancha</th>
-              <th>Obs</th>
+              <th>Observações</th>
               <th></th>
             </tr>
           </thead>
@@ -381,105 +738,142 @@
         </table>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- ABA 2: EDITAL TÉCNICO -->
-  <div id="edital" class="tab-content">
-    <div class="card">
-      <h2>
-        <span>Checklist Oficial — Escola Leandro Schmitz</span>
-        <span class="badge" id="tech-counter">0 / 0</span>
-      </h2>
-      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
-        Critério de aprovação: Prova Teórica + Defesa Pessoal + Quedas + Sorteio de 15 posições de solo. Máximo 3 erros acumulados (Parcial: -0,5 | Total: -1,0).
-      </p>
+  <section id="edital" class="tab-content">
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Edital Oficial — Escola Leandro Schmitz</h2>
+        <span class="tag green" id="tech-counter">0 / 0</span>
+      </div>
+
+      <div class="filter-bar">
+        <input type="text" id="tech-search" placeholder="🔍 Buscar posição (ex: kimura, raspagem, gravata, 100kg)..." oninput="renderChecklist()" />
+        <div class="filter-pills">
+          <button type="button" class="pill-btn active" onclick="setFilter('all', this)">Todas</button>
+          <button type="button" class="pill-btn" onclick="setFilter('pending', this)">Pendentes</button>
+          <button type="button" class="pill-btn" onclick="setFilter('done', this)">Dominadas</button>
+        </div>
+      </div>
+
       <div id="checklist-container"></div>
     </div>
 
-    <div class="card">
-      <h2>Anotações Técnicas / Posições para Pedir Ajuda no Tatame</h2>
-      <textarea id="tech-notes" rows="4" placeholder="Anote aqui detalhes de pegadas, posições que precisa treinar mais com o professor ou dúvidas da prova teórica..."></textarea>
-      <div style="margin-top: 0.6rem;">
-        <button class="btn" onclick="saveNotes()">Salvar Anotações</button>
-        <span id="notes-msg" style="font-size: 0.85rem; color: var(--success); margin-left: 0.5rem;"></span>
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Caderno de Tatame &amp; Dúvidas</h2>
+      </div>
+      <textarea id="tech-notes" rows="4" placeholder="Anote aqui detalhes de pegadas, posições para tirar dúvida com o professor Leandro ou ajustes de pressão..."></textarea>
+      <div style="margin-top: 0.85rem;">
+        <button type="button" class="btn" onclick="saveNotes()">💾 Salvar Anotações</button>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- ABA 3: CRONOGRAMA & REGRAS -->
-  <div id="plano" class="tab-content">
-    <div class="card">
-      <h2>Plano Físico (12 a 20 Semanas — 3x/Semana)</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Fase</th>
-            <th>Foco</th>
-            <th>Meta Flexões</th>
-            <th>Abs &amp; Prancha</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Fase 1</strong><br>(Sem. 1–3)</td>
-            <td>Base e adaptação tendões (cotovelo/ombro)</td>
-            <td><strong>50–60 totais:</strong> blocos de 5–8 retas (pausa 20s) + completar com joelho</td>
-            <td>2x25 abs + 2x30s prancha</td>
-          </tr>
-          <tr>
-            <td><strong>Fase 2</strong><br>(Sem. 4–7)</td>
-            <td>Aumentar bloco contínuo sem joelho</td>
-            <td><strong>70–80 totais:</strong> blocos de 10–15 retas (pausa 25s)</td>
-            <td>2x30 abs + 2x45s prancha</td>
-          </tr>
-          <tr>
-            <td><strong>Fase 3</strong><br>(Sem. 8–12)</td>
-            <td>Margem de sobra e 30 seguidas</td>
-            <td><strong>80–100 totais:</strong> 1º bloco de 20–25 seguidas + blocos de 12–15</td>
-            <td>50 abs seguidos + 1x60s prancha</td>
-          </tr>
-          <tr>
-            <td><strong>Fase 4</strong><br>(Sem. 13+)</td>
-            <td>Simulado real do dia do exame</td>
-            <td><strong>30 seguidas</strong> + pausa 1–2 min + <strong>30 seguidas</strong> + 20–30 extras</td>
-            <td>60 abs + 1x1m15s prancha</td>
-          </tr>
-        </tbody>
-      </table>
+  <section id="plano" class="tab-content">
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Periodização Física (12 a 20 Semanas)</h2>
+        <span class="tag">Meta: 3 a 6 meses</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fase</th>
+              <th>Objetivo</th>
+              <th>Flexões (Meta 80–100)</th>
+              <th>Core (Abs + Prancha)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Fase 1</strong><br><span style="color:var(--text-secondary);font-size:0.8rem;">Semanas 1–3</span></td>
+              <td>Adaptação de tendões e transição joelho ➔ reta</td>
+              <td><strong>50–60 totais:</strong> blocos de 5–8 retas (pausa 20s) + completar com joelho</td>
+              <td>2x25 abs + 2x30s prancha</td>
+            </tr>
+            <tr>
+              <td><strong>Fase 2</strong><br><span style="color:var(--text-secondary);font-size:0.8rem;">Semanas 4–7</span></td>
+              <td>Aumentar bloco contínuo sem apoio</td>
+              <td><strong>70–80 totais:</strong> blocos de 10–15 retas (pausa 25s)</td>
+              <td>2x30 abs + 2x45s prancha</td>
+            </tr>
+            <tr>
+              <td><strong>Fase 3</strong><br><span style="color:var(--text-secondary);font-size:0.8rem;">Semanas 8–12</span></td>
+              <td>Margem de sobra e aproximação dos 30 seguidos</td>
+              <td><strong>80–100 totais:</strong> 1º bloco de 20–25 seguidas + blocos de 12–15</td>
+              <td>50 abs seguidos + 1x60s prancha</td>
+            </tr>
+            <tr>
+              <td><strong>Fase 4</strong><br><span style="color:var(--text-secondary);font-size:0.8rem;">Semanas 13+</span></td>
+              <td>Simulado real de exame com fôlego inteiro</td>
+              <td><strong>30 seguidas</strong> + pausa 1–2 min + <strong>30 seguidas</strong> + 20–30 extras</td>
+              <td>60 abs + 1x1m15s prancha</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>Cola Rápida — Prova Teórica CBJJ / IBJJF</h2>
-      <ul style="padding-left: 1.2rem; font-size: 0.92rem; color: #e2e8f0; display: grid; gap: 0.5rem;">
-        <li><strong>2 Pontos:</strong> Queda, Raspagem, Joelho na barriga (estabilizar por 3 segundos).</li>
-        <li><strong>3 Pontos:</strong> Passagem de guarda (estabilizar por 3 segundos).</li>
-        <li><strong>4 Pontos:</strong> Montada, Montada pelas costas, Pegada de costas com os 2 ganchos (3 segundos).</li>
-        <li><strong>Tempo de Luta (Adulto):</strong> Branca (5 min) | Azul (6 min) | Roxa (7 min) | Marrom (8 min) | Preta (10 min).</li>
-        <li><strong>Tempo de Luta (Master 1+):</strong> Branca, Azul, Roxa, Marrom e Preta (5 min).</li>
-        <li><strong>Ordem das Faixas (Adulto):</strong> Branca → Azul → Roxa → Marrom → Preta → Coral (Vermelha e Preta / Vermelha e Branca) → Vermelha.</li>
-      </ul>
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Cola Rápida — Prova Teórica CBJJ / IBJJF</h2>
+      </div>
+      <div class="theory-grid">
+        <div class="theory-card">
+          <h4>2 Pontos (3s controle)</h4>
+          <p>Queda, Raspagem e Joelho na barriga.</p>
+        </div>
+        <div class="theory-card">
+          <h4>3 Pontos (3s controle)</h4>
+          <p>Passagem de guarda.</p>
+        </div>
+        <div class="theory-card">
+          <h4>4 Pontos (3s controle)</h4>
+          <p>Montada, Montada pelas costas e Pegada de costas com os 2 ganchos.</p>
+        </div>
+        <div class="theory-card">
+          <h4>Tempo de Luta (Adulto)</h4>
+          <p>Branca: 5m • Azul: 6m • Roxa: 7m • Marrom: 8m • Preta: 10m.</p>
+        </div>
+        <div class="theory-card">
+          <h4>Tempo de Luta (Master 1+)</h4>
+          <p>Todas as faixas (Branca à Preta): 5 minutos.</p>
+        </div>
+        <div class="theory-card">
+          <h4>Critério de Aprovação</h4>
+          <p>Teórica + Defesa Pessoal + Quedas + 15 posições sorteadas. Máx. 3 erros acumulados.</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- ABA 4: BACKUP -->
-  <div id="backup" class="tab-content">
-    <div class="card">
-      <h2>Sincronizar / Salvar Backup</h2>
-      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
-        Como o GitHub Pages é um site estático, seus dados ficam salvos automaticamente neste navegador. Use os botões abaixo para transferir seus dados entre celular e PC ou guardar uma cópia de segurança.
+  <section id="backup" class="tab-content">
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Gerenciar &amp; Sincronizar Dados</h2>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+        Seus treinos e marcações ficam salvos localmente no navegador deste dispositivo. Exporte o arquivo <strong>.json</strong> sempre que quiser salvar uma cópia de segurança ou transferir seu progresso entre celular e PC.
       </p>
-      <div class="flex-row" style="margin-bottom: 1rem;">
-        <button class="btn" onclick="exportData()">⬇️ Baixar Backup (.json)</button>
-        <label class="btn btn-outline" style="margin: 0; cursor: pointer;">
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <button type="button" class="btn" onclick="exportData()">⬇️ Baixar Backup (.json)</button>
+        <label class="btn btn-ghost" style="cursor: pointer; margin: 0;">
           ⬆️ Restaurar Backup (.json)
           <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importData(event)" />
         </label>
       </div>
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 1rem 0;" />
-      <button class="btn btn-danger" onclick="resetAll()">🗑️ Apagar Todos os Dados</button>
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 1.5rem 0;" />
+      <button type="button" class="btn btn-danger" onclick="resetAll()">🗑️ Apagar Todos os Registros</button>
     </div>
-  </div>
+  </section>
 </div>
+
+<div id="toast">Salvo com sucesso!</div>
 
 <script>
   const EDITAL_DATA = [
@@ -585,12 +979,20 @@
   ];
 
   const STORAGE_KEY = "bjj_azul_leandro_schmitz_v1";
+  let currentFilter = "all";
 
   let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
     workouts: [],
     checkedTech: {},
     notes: ""
   };
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2600);
+  }
 
   function saveState() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -604,10 +1006,15 @@
     btn.classList.add("active");
   }
 
-  // Inicializar data de hoje no formulário
+  function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderChecklist();
+  }
+
   document.getElementById("w-date").valueAsDate = new Date();
 
-  // Salvar treino físico
   document.getElementById("workout-form").addEventListener("submit", function(e) {
     e.preventDefault();
     const entry = {
@@ -625,6 +1032,7 @@
     renderWorkouts();
     this.reset();
     document.getElementById("w-date").valueAsDate = new Date();
+    showToast("Treino salvo com sucesso! Oss!");
   });
 
   function deleteWorkout(id) {
@@ -632,13 +1040,14 @@
     state.workouts = state.workouts.filter(w => w.id !== id);
     saveState();
     renderWorkouts();
+    showToast("Registro removido.");
   }
 
   function renderWorkouts() {
     const tbody = document.getElementById("workout-tbody");
     tbody.innerHTML = "";
     if (state.workouts.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" style="color: var(--text-muted); text-align:center;">Nenhum treino registrado ainda.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" style="color: var(--text-secondary); text-align:center; padding: 1.5rem;">Nenhum treino registrado ainda. Comece registrando sua primeira sessão acima!</td></tr>`;
       return;
     }
     state.workouts.forEach(w => {
@@ -646,13 +1055,13 @@
       const dateFmt = w.date.split("-").reverse().join("/");
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${dateFmt}</td>
-        <td><strong>${w.maxStraight}</strong> retas</td>
-        <td><strong>${totalPushups}</strong> (${w.totalStraight}R + ${w.totalKnee}J)</td>
-        <td>${w.abs}</td>
+        <td><strong>${dateFmt}</strong></td>
+        <td><span class="tag">${w.maxStraight} seguidas</span></td>
+        <td><span class="tag green">${totalPushups} total</span> <span style="color:var(--text-secondary);font-size:0.8rem;">(${w.totalStraight}R + ${w.totalKnee}J)</span></td>
+        <td>${w.abs} reps</td>
         <td>${w.plank}s</td>
-        <td style="color: var(--text-muted); max-width: 200px;">${w.notes || "-"}</td>
-        <td><button class="btn btn-danger" onclick="deleteWorkout(${w.id})">X</button></td>
+        <td style="color: var(--text-secondary); max-width: 220px;">${w.notes || "—"}</td>
+        <td style="text-align:right;"><button type="button" class="btn btn-danger" onclick="deleteWorkout(${w.id})">Excluir</button></td>
       `;
       tbody.appendChild(tr);
     });
@@ -660,42 +1069,64 @@
 
   function renderChecklist() {
     const container = document.getElementById("checklist-container");
+    const query = (document.getElementById("tech-search").value || "").toLowerCase().trim();
     container.innerHTML = "";
+
     EDITAL_DATA.forEach((group, gIdx) => {
+      const filteredItems = group.items
+        .map((item, iIdx) => ({ item, iIdx, key: `${gIdx}-${iIdx}`, checked: !!state.checkedTech[`${gIdx}-${iIdx}`] }))
+        .filter(obj => {
+          const matchesText = !query || obj.item.toLowerCase().includes(query) || group.category.toLowerCase().includes(query);
+          const matchesStatus =
+            currentFilter === "all" ||
+            (currentFilter === "done" && obj.checked) ||
+            (currentFilter === "pending" && !obj.checked);
+          return matchesText && matchesStatus;
+        });
+
+      if (filteredItems.length === 0) return;
+
+      const groupDoneCount = group.items.filter((_, idx) => !!state.checkedTech[`${gIdx}-${idx}`]).length;
       const div = document.createElement("div");
       div.className = "tech-group";
-      div.innerHTML = `<h3>${group.category}</h3>`;
-      group.items.forEach((item, iIdx) => {
-        const key = `${gIdx}-${iIdx}`;
-        const checked = !!state.checkedTech[key];
+      div.innerHTML = `
+        <div class="tech-group-header">
+          <span>${group.category}</span>
+          <span class="tag ${groupDoneCount === group.items.length ? 'green' : ''}">${groupDoneCount}/${group.items.length}</span>
+        </div>
+      `;
+
+      filteredItems.forEach(obj => {
         const row = document.createElement("label");
-        row.className = `tech-item ${checked ? "done" : ""}`;
+        row.className = `tech-item ${obj.checked ? "done" : ""}`;
         row.innerHTML = `
-          <input type="checkbox" ${checked ? "checked" : ""} onchange="toggleTech('${key}', this)" />
-          <span>${item}</span>
+          <input type="checkbox" ${obj.checked ? "checked" : ""} onchange="toggleTech('${obj.key}', this)" />
+          <span>${obj.item}</span>
         `;
         div.appendChild(row);
       });
+
       container.appendChild(div);
     });
+
+    if (!container.innerHTML) {
+      container.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding:1.5rem;">Nenhuma posição encontrada para esse filtro.</p>`;
+    }
   }
 
   function toggleTech(key, checkbox) {
     state.checkedTech[key] = checkbox.checked;
-    checkbox.parentElement.classList.toggle("done", checkbox.checked);
     saveState();
+    renderChecklist();
   }
 
   function saveNotes() {
     state.notes = document.getElementById("tech-notes").value;
     saveState();
-    const msg = document.getElementById("notes-msg");
-    msg.textContent = "Anotações salvas!";
-    setTimeout(() => msg.textContent = "", 2500);
+    showToast("Anotações técnicas salvas!");
   }
 
   function updateDashboard() {
-    // Físico
     let maxStraight = 0;
     let maxVol = 0;
     state.workouts.forEach(w => {
@@ -712,7 +1143,6 @@
 
     document.getElementById("stat-workouts").textContent = state.workouts.length;
 
-    // Técnico
     let totalItems = 0;
     let doneItems = 0;
     EDITAL_DATA.forEach((g, gIdx) => {
@@ -724,6 +1154,7 @@
 
     const pct = totalItems ? Math.round((doneItems / totalItems) * 100) : 0;
     document.getElementById("stat-tech").textContent = `${pct}%`;
+    document.getElementById("stat-tech-sub").textContent = `${doneItems} de ${totalItems} posições marcadas`;
     document.getElementById("bar-tech").style.width = `${pct}%`;
     document.getElementById("tech-counter").textContent = `${doneItems} / ${totalItems}`;
   }
@@ -736,6 +1167,7 @@
     a.download = `backup-faixa-azul-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
+    showToast("Backup baixado!");
   }
 
   function importData(event) {
@@ -751,7 +1183,7 @@
           renderWorkouts();
           renderChecklist();
           document.getElementById("tech-notes").value = state.notes || "";
-          alert("Backup restaurado com sucesso!");
+          showToast("Backup restaurado com sucesso!");
         } else {
           alert("Arquivo de backup inválido.");
         }
@@ -769,9 +1201,9 @@
     renderWorkouts();
     renderChecklist();
     document.getElementById("tech-notes").value = "";
+    showToast("Todos os registros foram limpos.");
   }
 
-  // Inicialização
   document.getElementById("tech-notes").value = state.notes || "";
   renderWorkouts();
   renderChecklist();
